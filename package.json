@@ -1,0 +1,19 @@
+{
+  "name": "mesh-forwarder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mesh-forward.js",
+  "scripts": {
+    "compile": "babel --presets es2015 src -d dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cmmc-mqtt": "^0.1.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
