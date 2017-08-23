@@ -26,7 +26,7 @@ mqttClient1.register('on_message', function (topic, payload) {
     } catch (err) {
       return {
         topics: ['error'],
-        payload: JSON.stringify({ info: {}, d: {} })
+        payload: JSON.stringify({ info: {}, d: {}, err: message.toString() })
       };
     }
     return {
