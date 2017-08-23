@@ -12,14 +12,23 @@ mqttClient1.register('on_message', function (topic, payload) {
 }).forward(mqttClient2, {
   prefix: 'MARU/',
   fn: function fn(prefix, topic, message, packet) {
-    var object = JSON.parse(message.toString());
-    object.info.prefix = prefix;
-    object.info.device_id = object.d.myName;
-    object.d.myName = object.d.codeName || object.d.myName;
-    var _ref = [packet.retain || true, packet.qos],
-        retain = _ref[0],
-        qos = _ref[1];
-
+    var object = void 0;
+    var retain = void 0,
+        qos = void 0;
+    try {
+      object = JSON.parse(message.toString());
+      object.info.prefix = prefix;
+      object.info.device_id = object.d.myName;
+      object.d.myName = object.d.codeName || object.d.myName;
+      var _ref = [packet.retain || true, packet.qos];
+      retain = _ref[0];
+      qos = _ref[1];
+    } catch (err) {
+      return {
+        topics: ['error'],
+        payload: JSON.stringify({ info: {}, d: {} })
+      };
+    }
     return {
       topics: ['' + prefix + object.d.myName + '/status'],
       payload: JSON.stringify(object),
